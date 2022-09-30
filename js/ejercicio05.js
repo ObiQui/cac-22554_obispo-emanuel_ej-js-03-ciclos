@@ -1,160 +1,188 @@
 function iniciar(e) {
     e.preventDefault();
 
-    // Inicio
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // INICIO
+
     console.log(`\n————————————————————\nEjercicio #05\n————————————————————`);
 
-    // Definir variables
-    let _temp1 = 0;
-    let _temp2 = "primera";
-    let _edadA = 0;
-    let _edadB = 0;
-    let _edadC = 0;
-    let _edadD = 0;
-    let _edadE = 0;
-    const _mayoriaEdad = 18;
+
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // VARIABLES
+
+    let _temp;
+
+    let _edad = 0;
+    let _conteo = 1;
+
+    const _personas = 5;
+    const _edadMínima = 0;
+    const _mayoriaDeEdad = 18;
+    const _edadMaxima = 120;
     const _n0 = 0;
     const _n1 = 1;
     const _n2 = 2;
 
-    // Mensaje
-    alert("En este ejercicio, deberá ingresar la edad de 5 personas.")
-    console.log("En este ejercicio, deberá ingresar la edad de 5 personas.")
+    let _yearsEdad = "año";         // Singular "año" o plural "años" para la edad recolectada
+    let _yearsMinima = "años";      // Singular "año" o plural "años" para la edad mínima
 
-    // Establecer el valor de la variable '_temp1'
-    function edad() {
+    let _quit = false;
+
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // MENSAJE
+
+    console.log(`En este ejercicio, deberá ingresar la edad de ${_personas} personas.`)
+
+    alert(`En este ejercicio, deberá ingresar la edad de ${_personas} personas.`)
+
+
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // FUNCIONES
+
+    function ingresarNumero(_mensaje) {
         do {
-            do {
-                do {
-                    // Ingresar el valor de A
-                    _temp1 = prompt(`Ingresar la edad de la ${_temp2} persona.\nSolo se admiten números naturales.`);
+            // Ingresar el número que se asignará a '_temp'
+            _temp = prompt(`${_mensaje}`, 0);
 
-                    // Si se presiona "Cancelar" en el prompt
-                    if (_temp1 == null) {
-                        // Cancelar ejercicio
-                        console.log(`Ejercicio cancelado.`);
-                        _temp1 = "quit";
-                        return;
-                    }
-        
-                    // Verificar si el caracter ingresado es un número
-                    if (isNaN(_temp1)) {
-                        alert(`Ha ingresado: ${_temp1}.\nDebe ingresar un número.`);
-                    }
-                } while (isNaN(_temp1));
-        
-                // Verificar si el número ingresado es un entero
-                if (_temp1 % _n1 != _n0) {
-                    alert(`El número ingresado debe ser un entero.`);
-                }
-            } while (_temp1 % _n1 != _n0);
-    
-            if (_temp1 < _n1) {
-                alert(`El número ingresado debe ser positivo.`);
+            // Si se presiona "Cancelar" en el prompt
+            if (_temp == null) {
+                // Cancelar el ejercicio
+                _quit = true;
+                return;
             }
-        } while (_temp1 < _n1);
+            
+            if (_temp == "") {
+                // Si no se ingreso ningún valor, el predeterminado es 0 (cero)
+                _temp = _n0;
+            }
+
+            // Verificar si el número es correcto
+            if (isNaN(_temp) || _temp < _edadMínima) {
+                alert(`Ha ingresado: ${_temp}.\nDebes ingresar un número positivo.\n————————————————————`);
+            }
+
+        } while (isNaN(_temp) || (_temp < _edadMínima));
+
+        // Regresar valor de '_temp'
+        return _temp;
     }
 
-
-    function presentar() {
+    function asignarEdad() {
 
         // Presentar datos
-        if (_temp1 > _mayoriaEdad) {
+        if (_edad > _mayoriaDeEdad) {
             // La persona es mayor de edad
-            if (_temp1 % _n2 == _n0) {
+
+            if (_edad % _n2 == _n0) {
                 // Es número par
                 console.log(`
                 ————————————————————
-                La ${_temp2} persona es mayor de edad.
-                ${_temp1} es un número par.
+                La persona #${_conteo} es mayor de edad.
+                ${_edad} es un número par.
                 ————————————————————`);
 
             } else {
                 // Es número par
                 console.log(`
                 ————————————————————
-                La ${_temp2} persona es mayor de edad.
-                ${_temp1} es un número impar.
+                La persona #${_conteo} es mayor de edad.
+                ${_edad} es un número impar.
                 ————————————————————`);
             }
 
         } else {
             // La persona es menor de edad
-            if (_temp1 % _n2 == _n0) {
+
+            if (_edad % _n2 == _n0) {
                 // Es número par
                 console.log(`
                 ————————————————————
-                La ${_temp2} persona es menor de edad.
-                ${_temp1} es un número par.
+                La persona #${_conteo} es menor de edad.
+                ${_edad} es un número par.
                 ————————————————————`);
 
             } else {
                 // Es número par
                 console.log(`
                 ————————————————————
-                La ${_temp2} persona es menor de edad.
-                ${_temp1} es un número impar.
+                La persona #${_conteo} es menor de edad.
+                ${_edad} es un número impar.
                 ————————————————————`);
             }
         }
     }
 
-    // Aplicar la función parseInt al número ingresado
-    _temp1 = parseInt(_temp1);
 
-    // Verificar si todas las edades han sido ingresadas
-    while ((_edadA == _n0) || (_edadB == _n0) || (_edadC == _n0) || (_edadD == _n0) || (_edadE == _n0)) {
 
-        // Activar función
-        edad();
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // CÓDIGO PRINCIPAL
 
-        if (_edadE == 0 && _edadD != 0) {
-            // Si _edadE es igual a 0, asignarle el valor de temp
-            if (_temp1 == "quit") {
-                return;
-            }
-            presentar();
-            _edadE = _temp1;
+    // Verificar singular o plural de la edad mínima
+    if (_edadMínima == _n1) {
+        _yearYears = "año";
+    } else {
+        _yearYears = "años";
+    }
+
+    // Acumular el valor total de las Alturas
+    for (_conteo = 1; _conteo <= _personas; _conteo++) {
+
+        // Obtener la altura de un jugador
+        _edad = ingresarNumero(`Ingrese la edad de la persona #${_conteo}.\nSolo se admiten edades entre 0 y 120 (inclusive).`);
+
+        // Verificar singular o plural de la edad registrada
+        if (_edad == _n1) {
+            _yearsEdad = "año";
+        } else {
+            _yearsEdad = "años";
         }
 
-        if (_edadD == 0 && _edadC != 0) {
-            // Si _edadD es igual a 0, asignarle el valor de temp
-            if (_temp1 == "quit") {
-                return;
-            }
-            presentar();
-            _edadD = _temp1;
-            _temp2 = "quinta";
+
+        // Si se ha presionado el botón "Cancelar" en el prompt
+        if (_quit == true) {
+            // Cerrar el ejercicio
+            console.log(`Ejercicio cancelado.\n————————————————————`);
+            return;
         }
 
-        if (_edadC == 0 && _edadB != 0) {
-            // Si _edadC es igual a 0, asignarle el valor de temp
-            if (_temp1 == "quit") {
-                return;
-            }
-            presentar();
-            _edadC = _temp1;
-            _temp2 = "cuarta";
-        }
+        if (_edad < _edadMínima) {
 
-        if (_edadB == 0 && _edadA != 0) {
-            // Si _edadB es igual a 0, asignarle el valor de temp
-            if (_temp1 == "quit") {
-                return;
-            }
-            presentar();
-            _edadB = _temp1;
-            _temp2 = "tercera";
-        }
+            // Verificar si el número ingresado es un entero
+            alert(`Ha ingresado: ${_edad} ${_yearsEdad}.\nIngrese una edad mayor a ${_edadMínima} ${_yearsMinima}.`);
 
-        if (_edadA == 0) {
-            // Si _edadA es igual a 0, asignarle el valor de temp
-            if (_temp1 == "quit") {
-                return;
-            }
-            presentar();
-            _edadA = _temp1;
-            _temp2 = "segunda";
+            // Retroceder el conteo una vez debido al error
+            _conteo--
+
+        } else if (_edad > _edadMaxima) {
+
+            // Verificar si el número ingresado es mayor a la edad máxima
+            alert(`Ha ingresado: ${_edad} ${_yearsEdad}.\nIngrese una edad menor a ${_edadMaxima} años.`);
+
+            // Retroceder el conteo una vez debido al error
+            _conteo--
+
+        } else if (_edad % _n1 != _n0) {
+
+            // Aplicar la función parseInt al valor ingresado
+            _edad = parseInt(_edad);
+
+            alert(`El número ingresado no es un entero, por tanto, los decimales serán truncados.`);
+
+            // Asignar edad a la persona correspondiente
+            asignarEdad();
+
+        } else {
+
+            // Asignar edad a la persona correspondiente
+            asignarEdad();
         }
     }
 }

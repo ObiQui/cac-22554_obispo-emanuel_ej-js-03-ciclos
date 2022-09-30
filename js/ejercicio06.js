@@ -1,109 +1,145 @@
 function iniciar(e) {
     e.preventDefault();
 
-    // Inicio
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // INICIO
+
     console.log(`\n————————————————————\nEjercicio #06\n————————————————————`);
 
-    // Definir variables
-    let _cant = 0;
-    let _totalVentas = 0;
-    let _conteo;
+
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // VARIABLES
+
     let _temp;
+
+    let _cant = 0;
+    let _precio = 0;
+    let _totalVentas = 0;
+    let _conteo = 1;
+
     const _n0 = 0;
     const _n1 = 1;
     const _n100 = 100;
 
-    // Mensaje
-    console.log("El dueño de un negocio va a cerrar la caja, primero debe ingresar la cantidad de ventas del día, y a continuación el valor de cada producto vendido.")
+    let _quit = false;
 
-    alert("El dueño de un negocio va a cerrar la caja, primero debe ingresar la cantidad de ventas del día, y a continuación el valor de cada producto vendido.")
 
-    // Establecer el valor de las variables '_cant' y '_totalVentas'
-    function cantidad() {
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // MENSAJE
+    console.log("El dueño de un negocio va a cerrar la caja, primero debe registrar la cantidad de ventas del día, y a continuación el valor de cada producto vendido.")
+
+    alert("El dueño de un negocio va a cerrar la caja, primero debe registrar la cantidad de ventas del día, y a continuación el valor de cada producto vendido.")
+
+
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // CÓDIGO PRINCIPAL
+
+    function ingresarNumero(_mensaje) {
         do {
-            do {
-                do {
-                    // Ingresar un número '_cant'
-                    if (_cant == 0) {
-                        _temp = prompt(`Ingresá la cantidad de ventas del día.\nSolo se admiten números enteros.`);
-                        if (_temp == null) {
-                            console.log(`Ejercicio cancelado.`);
-                            _temp = "quit";
-                            return;
-                        }
-                    }
+            // Ingresar el número que se asignará a '_temp'
+            _temp = prompt(`${_mensaje}`, 0);
 
-                    // Verificar si el caracter ingresado es un número
-                    if (isNaN(_temp)) {
-                        alert(`Ha ingresado: ${_temp}.\nDebe ingresar un número.`);
-                    }
-                } while (isNaN(_temp));
-
-                // Verificar si el número ingresado es un entero
-                if (_temp % _n1 != _n0) {
-                    alert(`El número ingresado debe ser un entero.`);
-                }
-            } while (_temp % _n1 != _n0);
-
-            // Aplicar la función parseInt al número ingresado
-            _temp = parseInt(_temp);
-
-            // Verificar si el número ingresado es mayor a cero
-            if (_temp < _n1) {
-                alert(`El número ingresado debe ser positivo.`);
+            // Si se presiona "Cancelar" en el prompt
+            if (_temp == null) {
+                // Cancelar el ejercicio
+                _quit = true;
+                return;
             }
-        } while (_temp < _n1);
+            
+            if (_temp == "") {
+                // Si no se ingreso ningún valor, el predeterminado es 0 (cero)
+                _temp = _n0;
+            }
+
+            // Verificar si el número es correcto
+            if (isNaN(_temp) || _temp < _n1) {
+                alert(`Ha ingresado: ${_temp}.\nDebes ingresar un número positivo.\n————————————————————`);
+            }
+
+        } while (isNaN(_temp) || (_temp < _n1));
+
+        // Regresar valor de '_temp'
+        return _temp;
     }
 
-    function ventas() {
-        do {
-            do {
-                // Ingrear el valor de '_temp'
-                _temp = parseFloat(prompt(`Ingresá el precio de los productos vendidos.\nSe admiten números reales positivos.`));
-                if (_temp == null) {
-                    console.log(`Ejercicio cancelado.`);
-                    _temp = "quit";
-                    return;
-                }
-    
-                // Verificar si el caracter ingresado es un número
-                if (isNaN(_temp)) {
-                    alert(`Ha ingresado: ${_temp}.\nDebe ingresar un número.`);
-                }
-            } while (isNaN(_temp));
 
-            // Aplicar la función parseFloat al número ingresado
-            _temp = parseFloat(_temp);
 
-            // Verificar si el número ingresado es mayor a cero
-            if (_temp < _n0) {
-                alert(`Ha ingresado: ${_temp}.\nDebe ingresar un número positivo.`);
-            }
-        } while (_temp < _n0);
-    }
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // CÓDIGO PRINCIPAL
 
     // Asignar un valor a la variable '_cant'
     while (_cant < _n1) {
-        cantidad();
-        _cant = _temp;
-    }
 
-    // Acumular el valor total de las ventas
-    for (_conteo = 0; _conteo < _cant; _conteo++) {
+        // Asignar el valor de '_temp' a la variable '_cant'
+        _cant = ingresarNumero(`¿Cuantos productos se vendieron en el día?.\nSolo se admiten números enteros.`);
 
-        if (_temp == "quit") {
+        // Si se ha presionado el botón "Cancelar" en el prompt
+        if (_quit == true) {
+            // Cerrar el ejercicio
+            console.log(`Ejercicio cancelado.\n————————————————————`);
             return;
         }
 
-        ventas();
-        _temp = parseFloat(_temp);
-        console.log(`Nueva venta: ${_temp}\n————————————————————`);
-        _totalVentas = _totalVentas + _temp;
-        _totalVentas = Math.round(_totalVentas * _n100)/_n100;
+        // Verificar si el número ingresado es un entero
+        if (_cant % _n1 != _n0) {
+
+            // Aplicar la función parseInt al valor ingresado
+            _cant = parseInt(_cant);
+
+            //Mensaje
+            console.log(`Productos vendidos: ${_cant}.\n————————————————————`);
+
+            alert(`El número no es un entero, por tanto, los decimales serán truncados.\nProductos vendidos: ${_cant}.`);
+
+        } else {
+
+            // Aplicar la función parseInt al valor ingresado
+            _cant = parseInt(_cant);
+
+            //Mensaje
+            console.log(`Productos vendidos: ${_cant}.\n————————————————————`);
+        }
     }
 
+    // Acumular el valor total de las ventas
+    for (_conteo = 1; _conteo <= _cant; _conteo++) {
+
+        // Obtener la altura de un jugador
+        _precio = ingresarNumero(`Registrar el precio del producto #${_conteo}.\nSe admiten números positivos.`);
+
+        // Aplicar la función parseFloat al valor ingresado
+        _precio = parseFloat(_precio);
+
+        // Si se ha presionado el botón "Cancelar" en el prompt
+        if (_quit == true) {
+            // Cerrar el ejercicio
+            console.log(`Ejercicio cancelado.\n————————————————————`);
+            return;
+        }
+
+        // Presentar nueva entrada
+        console.log(`Producto #${_conteo}: $${_precio}.\n————————————————————`);
+
+        // Sumar '_precio' a la variable 'totalEstaturas'
+        _totalVentas = (_totalVentas + _precio);
+
+        // Aplicar la función parseFloat al valor asignado
+        _totalVentas = parseFloat(_totalVentas);
+    }
+
+    // Redondear ingresos
+    _totalVentas = Math.round(_totalVentas * _n100)/_n100;
+    
     // Presentar datos
-    console.log(`El total de las ventas es: ${_totalVentas}\n————————————————————`);
+    console.log(`El total de ingresos por ventas es: ${_totalVentas}\n————————————————————`);
 }
 
 document.getElementById("start06").onsubmit = iniciar;

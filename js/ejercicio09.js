@@ -1,7 +1,10 @@
 function iniciar(e) {
     e.preventDefault();
 
-    // Inicio
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // INICIO
+
     console.log(`\n————————————————————\nEjercicio #09\n————————————————————`);
 
     // Definir variables

@@ -1,50 +1,89 @@
 function iniciar(e) {
     e.preventDefault();
 
-    // Inicio
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // INICIO
+
     console.log(`\n————————————————————\nEjercicio #03\n————————————————————`);
 
-        // Definir variables
-        let _numero;
-        let _multiplicador;
-        const _limite = 11;
-        const _n0 = 0;
-        const _n1 = 1;
 
-        // Establecer el valor de la variable '_numero'
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // VARIABLES
+
+    let _temp;
+
+    let _numero = 0;
+    let _multiplicador;
+
+    const _limite = 10;
+    const _n0 = 0;
+    const _n1 = 1;
+
+
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // MENSAJE
+
+    console.log(`Al ingresar un número entre 1 y 10 (inclusive) se le presentará la tabla de multiplicación de dicho número.`);
+
+    alert(`Al ingresar un número entre 1 y 10 (inclusive) se le presentará la tabla de multiplicación de dicho número.`);
+
+
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // FUNCIONES
+
+    function ingresarNumero(_mensaje) {
         do {
-            do {
-                // Ingresar el valor de A
-                _numero = prompt(`A continuación deberá ingresar un número entero entre 1 y 10 (inclusive).`);
-                if (_numero == null) {
-                    console.log(`Ejercicio cancelado.`);
-                    return;
-                }
-    
-                // Verificar si el caracter ingresado es un número
-                if (isNaN(_numero)) {
-                    alert(`No se ha ingresado no un número.`);
-                }
-            } while (isNaN(_numero));
-    
-            // Verificar si el número ingresado es un entero
-            if (_numero % _n1 != _n0) {
-                alert(`El número ingresado no es un entero.\n`);
+            // Ingresar el número que se asignará a '_temp'
+            _temp = prompt(`${_mensaje}`, 0);
+
+            // Si se presiona "Cancelar" en el prompt
+            if (_temp == null) {
+                // Cancelar el ejercicio
+                _quit = true;
+                return;
             }
-        } while (_numero % _n1 != _n0);
 
-        // Aplicar la función parseInt a los números ingresados
-        _numero = parseInt(_numero);
+            if (_temp == "") {
+                // Si no se ingreso ningún valor, el predeterminado es 0 (cero)
+                _temp = _n0;
+            }
 
-        // Presentar número
-        console.log(`A continuación se presentará\nla tabla de multiplicación del número ${_numero}.`);
-        
-        alert(`A continuación se presentará\nla tabla de multiplicación del número ${_numero}.`);
+            // Verificar si el número es correcto
+            if (isNaN(_temp) || (_temp < _n1) || (_temp > _limite) || (_temp % _n1 != _n0)) {
+                alert(`Ha ingresado: ${_temp}.\nDebes ingresar un número entero entre 1 y 10 (inclusive).`);
+            }
 
-        // Presentar tabla de multiplicación del número escojido
-        for (_multiplicador = _n0; _multiplicador < _limite; _multiplicador++) {
-            console.log(`${_numero} x ${_multiplicador} = ${_numero*_multiplicador}`);
-        }
+        } while (isNaN(_temp) || (_temp < _n1) || (_temp > _limite) || (_temp % _n1 != _n0));
+
+        // Regresar valor de '_temp'
+        return _temp;
+    }
+
+
+
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // CÓDIGO PRINCIPAL
+
+    // Asignar un valor a la variable '_numero'
+    while ((_numero < _n1)) {
+        _numero = ingresarNumero(`Ingresar un número entero entre 1 y 10 (inclusive).\n————————————————————`);
+    }
+
+    // Aplicar la función parseInt al número ingresado
+    _numero = parseInt(_numero);
+
+    // Presentar tabla de multiplicación del número escojido
+    for (_multiplicador = _n0; _multiplicador <= _limite; _multiplicador++) {
+        console.log(`${_numero} x ${_multiplicador} = ${_numero*_multiplicador}`);
+    }
 }
 
 document.getElementById("start03").onsubmit = iniciar;
